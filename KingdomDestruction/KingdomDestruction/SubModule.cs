@@ -8,12 +8,10 @@ namespace KingdomDestruction
     {
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
-            if (game.GameType is Campaign)
-            {
-                var campaignStarter = (CampaignGameStarter)gameStarter;
+            if (game.GameType is not Campaign) return;
+            var campaignStarter = (CampaignGameStarter)gameStarter;
 
-                campaignStarter.AddBehavior(new KingdomDestructionBehavior(campaignStarter));
-            }
+            campaignStarter.AddBehavior(new KingdomDestructionBehavior(campaignStarter));
         }
     }
 }

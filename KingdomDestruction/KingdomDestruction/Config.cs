@@ -40,12 +40,10 @@ namespace KingdomDestruction
             while (fileReader.ReadLine() is { } line)
             {
                 var indexOfEqualSign = line.IndexOf('=');
-                if (indexOfEqualSign != -1)
-                {
-                    var key = line.Substring(0, indexOfEqualSign);
-                    var value = line.Substring(indexOfEqualSign + 1);
-                    ConfigValues[key] = Convert.ToDouble(value);
-                }
+                if (indexOfEqualSign == -1) continue;
+                var key = line.Substring(0, indexOfEqualSign);
+                var value = line.Substring(indexOfEqualSign + 1);
+                ConfigValues[key] = Convert.ToDouble(value);
             }
             fileReader.Close();
         }

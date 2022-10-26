@@ -15,7 +15,7 @@ namespace KingdomDestruction
 
         public KingdomDestructionBehavior(CampaignGameStarter starter)
         {
-            this.AddDialogs(starter);
+            AddDialogs(starter);
         }
 
         public override void RegisterEvents()
@@ -48,28 +48,25 @@ namespace KingdomDestruction
 
         private static void CheckKingdoms()
         {
-            bool checkVassals = (float)Config.GetKeyValue("vassalsNeedToBeGone") == 1.0;
+            const double tolerance = 0.000000001;
+            
+            var checkVassals = Math.Abs((float)Config.GetKeyValue("vassalsNeedToBeGone") - 1.0) < tolerance;
 
-            foreach (Kingdom kingdom in Campaign.Current.Kingdoms.ToList())
+            foreach (var kingdom in Campaign.Current.Kingdoms.ToList().Where(kingdom => !kingdom.IsEliminated))
             {
-                if (kingdom.IsEliminated)
-                    continue;
-
                 if (!_kingdomsOnTimer.ContainsKey(kingdom))
                 {
-                    if (!kingdom.Leader.Equals(Hero.MainHero) && kingdom.Fiefs.Count < 1)
+                    if (kingdom.Leader.Equals(Hero.MainHero) || kingdom.Fiefs.Count >= 1) continue;
+                    if (checkVassals)
                     {
-                        if (checkVassals)
-                        {
-                            if (Utils.ExcludeMercenaryClansFrom(kingdom.Clans.ToList()).Count == 1)
-                            {
-                                SetDestroyTimerTo(kingdom);
-                            }
-                        }
-                        else
+                        if (Utils.ExcludeMercenaryClansFrom(kingdom.Clans.ToList()).Count == 1)
                         {
                             SetDestroyTimerTo(kingdom);
                         }
+                    }
+                    else
+                    {
+                        SetDestroyTimerTo(kingdom);
                     }
                 }
                 else
@@ -81,11 +78,9 @@ namespace KingdomDestruction
                     }
 
                     CampaignTime timeToDie = _kingdomsOnTimer[kingdom];
-                    if (CampaignTime.Now >= timeToDie)
-                    {
-                        DestroyKingdom(kingdom);
-                        _kingdomsOnTimer.Remove(kingdom);
-                    }
+                    if (CampaignTime.Now < timeToDie) continue;
+                    DestroyKingdom(kingdom);
+                    _kingdomsOnTimer.Remove(kingdom);
                 }
             }
         }
@@ -96,7 +91,7 @@ namespace KingdomDestruction
                 _displacedRulingClans.Remove(clan);
         }
 
-        private int _goldNeededForRulingClanToJoin = 0;
+        private int _goldNeededForRulingClanToJoin;
         private void AddDialogs(CampaignGameStarter starter)
         {
             starter.AddPlayerLine("TalkToDisplacedRulerStart", "hero_main_options", "TalkToDisplacedRulerStartOutput",
@@ -113,24 +108,19 @@ namespace KingdomDestruction
                                 return true;
                             }
                     return false;
-                }, null, 200, null, null);
+                }, null, 200);
                 starter.AddDialogLine("TalkToDisplacedRulerStartAccepted", "TalkToDisplacedRulerStartOutput", "lord_pretalk",
                     "Alright, I suppose I could do worse - ugh! The shame of it all. There is no need for further bloodshed. I will serve you well, from this day until the end of my days.",
-                    () =>
-                    {
-                        return Hero.OneToOneConversationHero.GetRelationWithPlayer() >= (float)Config.GetKeyValue("relationNeededForDisplacedClanToJoinFree");
-                    }, () => Conversation_DisplacedRulerJoinsPlayerKingdom(), 100);
+                    () => Hero.OneToOneConversationHero.GetRelationWithPlayer() >= (float)Config.GetKeyValue("relationNeededForDisplacedClanToJoinFree"), () => Conversation_DisplacedRulerJoinsPlayerKingdom());
 
                 starter.AddDialogLine("TalkToDisplacedRulerStartDenied", "TalkToDisplacedRulerStartOutput", "lord_pretalk",
                     "Serve you? Not now, not never.",
-                    () =>
-                    {
-                        return Hero.OneToOneConversationHero.GetRelationWithPlayer() <= (float)Config.GetKeyValue("relationNeededForDisplacedClanToNeverJoin");
-                    }, null, 90);
+                    () => Hero.OneToOneConversationHero.GetRelationWithPlayer() <= (float)Config.GetKeyValue("relationNeededForDisplacedClanToNeverJoin"), null, 90);
 
                 starter.AddDialogLine("TalkToDisplacedRulerStartMoneyNeeded", "TalkToDisplacedRulerStartOutput", "TalkToDisplacedRulerMoneyNeededConfirm",
                         "You really think I'd join you? Not for free at least, give me and my kin tribute and I'll think on it.",
-                        null, null, 80, null);
+                        null, null, 80);
+                
                     starter.AddPlayerLine("TalkToDisplacedRulerMoneyNeededPay", "TalkToDisplacedRulerMoneyNeededConfirm", "TalkToDisplacedRulerMoneyNeededAccepted",
                         "That can be arranged.",
                         null, null, 100, (out TextObject explain) =>
@@ -138,24 +128,22 @@ namespace KingdomDestruction
                             explain = new TextObject(_goldNeededForRulingClanToJoin + " gold needed");
                             return Hero.MainHero.Gold >= _goldNeededForRulingClanToJoin;
                         });
+                    
                     starter.AddPlayerLine("TalkToDisplacedRulerMoneyNeededRefuse", "TalkToDisplacedRulerMoneyNeededConfirm", "TalkToDisplacedRulerMoneyNeededNotMet",
                         "I don't think that will be happening.",
-                        () =>
-                        {
-                            return Hero.MainHero.Gold >= _goldNeededForRulingClanToJoin;
-                        }, null, 90, null);
+                        () => Hero.MainHero.Gold >= _goldNeededForRulingClanToJoin, null, 90);
+                    
                     starter.AddPlayerLine("TalkToDisplacedRulerMoneyNeededNotEnough", "TalkToDisplacedRulerMoneyNeededConfirm", "TalkToDisplacedRulerMoneyNeededNotMet",
                         "I don't think I have enough gold to make amends. I'll have to check the treasury.",
-                        () =>
-                        {
-                            return Hero.MainHero.Gold < _goldNeededForRulingClanToJoin;
-                        }, null, 80, null);
+                        () => Hero.MainHero.Gold < _goldNeededForRulingClanToJoin, null, 80);
+                    
                     starter.AddDialogLine("TalkToDisplacedRulerEndMoneyNeededAccepted", "TalkToDisplacedRulerMoneyNeededAccepted", "lord_pretalk",
                         "Alright, I suppose that's enough to make bygones be bygones. I will serve you well... my liege.",
-                        null, () => Conversation_DisplacedRulerJoinsPlayerKingdom(_goldNeededForRulingClanToJoin), 100, null);
+                        null, () => Conversation_DisplacedRulerJoinsPlayerKingdom(_goldNeededForRulingClanToJoin));
+                    
                     starter.AddDialogLine("TalkToDisplacedRulerEndMoneyNeededNotMet", "TalkToDisplacedRulerMoneyNeededNotMet", "lord_pretalk",
                         "Then, *I* don't think we have much more to be discussing...",
-                        null, null, 100, null);
+                        null, null);
         }
         private static void Conversation_DisplacedRulerJoinsPlayerKingdom(int cost = 0)
         {

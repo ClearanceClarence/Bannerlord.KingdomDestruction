@@ -1,0 +1,22 @@
+C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\KingdomDestruction\x64\Release\net472\KingdomDestruction.dll
+C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\KingdomDestruction\x64\Release\net472\KingdomDestruction.pdb
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\IsExternalInit\1.0.1\IsExternalInit\IsExternalInit.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\AllowNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\DisallowNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\DoesNotReturnAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\DoesNotReturnIfAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\MaybeNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\MaybeNullWhenAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\MemberNotNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\MemberNotNullWhenAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\NotNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\NotNullIfNotNullAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\NuGet\8FA4D9E9869BAF0985E40136473A6608123C1252\Nullable\1.3.0\Nullable\NotNullWhenAttribute.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.csproj.AssemblyReference.cache
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.AssemblyInfoInputs.cache
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.AssemblyInfo.cs
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.csproj.CoreCompileInputs.cache
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.csproj.CopyComplete
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.dll
+C:\Users\adria\RiderProjects\KingdomDestruction\KingdomDestruction\obj\x64\Release\net472\KingdomDestruction.pdb
